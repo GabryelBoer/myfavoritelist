@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import MovieCard from '../components/MovieCard';
 
-import './MoviesGrid.css';
+import './MoviesGrid.css'
 
 const moviesURL = import.meta.env.VITE_API;
 const apiKey = import.meta.env.VITE_API_KEY;
@@ -10,7 +10,7 @@ const Home = () => {
   const [topMovies, setTopMovies] = useState([]);
 
   useEffect(() => {
-    fetch(`${moviesURL}top_rated?${apiKey}&language=pt-BR`, {
+    fetch(`${moviesURL}top_rated?${apiKey}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
