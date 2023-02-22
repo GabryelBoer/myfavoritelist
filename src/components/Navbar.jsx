@@ -15,7 +15,6 @@ const Navbar = () => {
 
     navigate(`/search?q=${search}`);
     setSearch('');
-    window.location.reload(true)
   };
 
   return (
