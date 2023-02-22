@@ -10,26 +10,28 @@ import {
 import MovieCard from '../components/MovieCard';
 
 import './Movie.css';
+import config from '../axios/config';
 
-const moviesURL = import.meta.env.VITE_API;
 const apiKey = import.meta.env.VITE_API_KEY;
 
 const Movie = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
 
+  const getMovie = async () => {
+    try {
+      const response = await config.movieFetch.get(
+        `${id}?${apiKey}&language=pt-BR`
+      );
+      const data = response.data;
+      setMovie(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    fetch(`${moviesURL}${id}?${apiKey}&language=pt-BR`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        setMovie(data);
-      })
-      .catch((err) => console.log(err));
+    getMovie();
   }, []);
 
   const formatCurrency = (number) => {
