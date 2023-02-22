@@ -31,6 +31,7 @@ const Search = () => {
   };
 
   useEffect(() => {
+    setPage(1)
     getSearchMovies();
   }, [query]);
 
