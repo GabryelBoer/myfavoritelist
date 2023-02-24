@@ -1,6 +1,8 @@
 import { useCallback } from 'react';
 import { useState, useEffect } from 'react';
+
 import config from '../axios/config';
+import ButtonToTop from '../components/ButtonToTop';
 import MovieCard from '../components/MovieCard';
 import MyPagination from '../components/MyPagination';
 
@@ -13,10 +15,13 @@ const Home = () => {
   const [totalPages, setTotalPages] = useState();
   const [page, setPage] = useState(1);
 
-  const isScrolling = window.matchMedia('(max-width: 600px)').matches
+  const isScrolling = window.matchMedia('(max-width: 600px)').matches;
 
   //Requisição API
   useEffect(() => {
+    {
+      !isScrolling && window.scrollTo(0, 0);
+    }
     const getTopFilms = async () => {
       try {
         const response = await config.movieFetch.get(
@@ -38,7 +43,6 @@ const Home = () => {
     getTopFilms();
   }, [page]);
 
-  
   //Scrolling infinito para celulares
   useEffect(() => {
     setTimeout(() => {
@@ -56,7 +60,7 @@ const Home = () => {
   // Seta a página do pagination
   const handleChangePage = useCallback((page) => {
     setPage(page);
-  }, [isScrolling]);
+  }, []);
 
   return (
     <div className="container">
@@ -78,6 +82,8 @@ const Home = () => {
 
       {/* Sentinela para scrolling infinito */}
       {totalPages > 1 && <div id="sentinela-home"></div>}
+
+      <ButtonToTop />
     </div>
   );
 };

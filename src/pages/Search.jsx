@@ -1,7 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
+
 import config from '../axios/config';
 import MovieCard from '../components/MovieCard';
+import ButtonToTop from '../components/ButtonToTop';
 
 const apiKey = import.meta.env.VITE_API_KEY;
 const searchURL = import.meta.env.VITE_SEARCH;
@@ -9,16 +11,15 @@ const searchURL = import.meta.env.VITE_SEARCH;
 import './MoviesGrid.css';
 
 const Search = () => {
-  
   const [searchParams] = useSearchParams();
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState();
-  const [queried, SetQueried] = useState(true)
+  const [queried, SetQueried] = useState(false);
   const [movies, setMovies] = useState([]);
   const query = searchParams.get('q');
 
   // Função fetch na requisição na API
-  const getSearchMovies = async () => { 
+  const getSearchMovies = async () => {
     try {
       const response = await config.searchFetch.get(
         `${searchURL}?${apiKey}&language=pt-BR&page=${page}&query=${query}`
@@ -26,13 +27,12 @@ const Search = () => {
 
       const data = response.data;
 
-      if(queried) {
-        setMovies(data.results)
+      if (queried) {
+        setMovies(data.results);
+      } else if (!queried) {
+        setMovies([...movies, ...data.results]);
       }
-      else if(!queried) {
-        setMovies([...movies, ...data.results])
-      }        
-      
+
       setTotalPages(data.total_pages);
     } catch (error) {
       console.log(error);
@@ -41,21 +41,23 @@ const Search = () => {
 
   // Realiza a requisição na api e atualiza a página quando atualizar o query
   useEffect(() => {
-    setPage(1)
-    SetQueried(true)
-    {queried && getSearchMovies()}
-  }, [query])
+    setPage(1);
+    SetQueried(true);
+    {
+      queried && getSearchMovies();
+    }
+  }, [query]);
 
-  useEffect(() =>{
-    getSearchMovies()
-  }, [queried])
+  useEffect(() => {
+    getSearchMovies();
+  }, [queried]);
 
   //Scrolling infinito para celulares
   useEffect(() => {
     setTimeout(() => {
       const intersectionObserver = new IntersectionObserver((entries) => {
         if (entries.some((entry) => entry.isIntersecting)) {
-          SetQueried(false)
+          SetQueried(false);
           setPage((currentValue) => currentValue + 1);
         }
       });
@@ -68,9 +70,9 @@ const Search = () => {
   useEffect(() => {
     getSearchMovies();
   }, [page]);
-  
+
   return (
-    <div id='container' className="container">
+    <div id="container" className="container">
       <h2 className="title">
         Resultados para: <span className="query-text">{query}</span>
       </h2>
@@ -82,8 +84,9 @@ const Search = () => {
 
       {/* Sentinela para scrolling infinito */}
       {totalPages > 1 && <div id="sentinela-search"></div>}
+      <ButtonToTop />
     </div>
-  )
+  );
 };
 
 export default Search;

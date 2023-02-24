@@ -1,0 +1,29 @@
+.circulo {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  transition: display 2s;
+}
+
+.circulo button {
+  opacity: 85%;
+  border: none;
+  color: black;
+  background-color: #f7d454;
+  width: 50px;
+  height: 50px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+
+.circulo button:hover {
+  opacity: 85%;
+  color: #f7d454;
+  background-color: black;
+  border: 2px solid #f7d454;
+}
+
+.circulo svg {
+  font-size: 2.5em;
+}
