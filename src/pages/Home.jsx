@@ -15,7 +15,7 @@ const Home = () => {
   const [totalPages, setTotalPages] = useState();
   const [page, setPage] = useState(1);
 
-  const isScrolling = window.matchMedia('(max-width: 600px)').matches;
+  const [isScrolling, setIsScrolling] = useState(false)
 
   //Requisição API
   useEffect(() => {
@@ -48,6 +48,7 @@ const Home = () => {
     setTimeout(() => {
       const intersectionObserver = new IntersectionObserver((entries) => {
         if (entries.some((entry) => entry.isIntersecting)) {
+          setIsScrolling(true)
           setPage((currentValue) => currentValue + 1);
         }
       });
