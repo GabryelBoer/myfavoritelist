@@ -48,10 +48,6 @@ const Search = () => {
     }
   }, [query]);
 
-  useEffect(() => {
-    getSearchMovies();
-  }, [queried]);
-
   //Scrolling infinito para celulares
   useEffect(() => {
     setTimeout(() => {
