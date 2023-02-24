@@ -13,6 +13,9 @@ const Home = () => {
   const [totalPages, setTotalPages] = useState();
   const [page, setPage] = useState(1);
 
+  const isScrolling = window.matchMedia('(max-width: 600px)').matches
+
+  //Requisição API
   useEffect(() => {
     const getTopFilms = async () => {
       try {
@@ -21,8 +24,12 @@ const Home = () => {
         );
 
         const data = response.data;
-
-        setTopMovies(data.results);
+        {
+          isScrolling && setTopMovies([...topMovies, ...data.results]);
+        }
+        {
+          !isScrolling && setTopMovies(data.results);
+        }
         setTotalPages(data.total_pages);
       } catch (error) {
         console.log(error);
@@ -31,9 +38,25 @@ const Home = () => {
     getTopFilms();
   }, [page]);
 
+  
+  //Scrolling infinito para celulares
+  useEffect(() => {
+    setTimeout(() => {
+      const intersectionObserver = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setPage((currentValue) => currentValue + 1);
+        }
+      });
+      intersectionObserver.observe(document.querySelector('#sentinela-home'));
+
+      return () => isScrolling && intersectionObserver.disconnect();
+    }, 300);
+  }, []);
+
+  // Seta a página do pagination
   const handleChangePage = useCallback((page) => {
-    setPage(page)
-  }, [])
+    setPage(page);
+  }, [isScrolling]);
 
   return (
     <div className="container">
@@ -43,13 +66,18 @@ const Home = () => {
         {topMovies.length > 0 &&
           topMovies.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
       </div>
+
+      {/* Paginação */}
       {totalPages > 1 && (
-        <MyPagination 
-          total={totalPages-42}
+        <MyPagination
+          total={totalPages - 42}
           current={page}
           onChangePage={handleChangePage}
         />
       )}
+
+      {/* Sentinela para scrolling infinito */}
+      {totalPages > 1 && <div id="sentinela-home"></div>}
     </div>
   );
 };

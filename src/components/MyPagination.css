@@ -1,5 +1,58 @@
-
+/* Typical Device Breakpoints 
+-----------------------------
+Pequenas telas: até 600px
+Celular: 600px até 768px
+Tablet: 768px até 992px
+Desktop: 992px até 1200px
+Grandes telas: acima de 1200px
+*/
 .pagination-container {
+  display: none;
+}
+
+@media screen and (min-width: 600px) {
+  .pagination-container {
+    display: flex;
+    list-style: none;
+    margin-bottom: 50px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .pagination-container > button {
+    background-color: transparent;
+    padding: .7rem 1rem;
+    font-weight: bold;
+    color: #f7d354;
+    border: 1px solid #f7d354;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    margin: 0px 5px;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  
+  .pagination-container button.active {
+   background-color: #f7d354;
+   color: black;
+  }
+  
+  .pagination-container button:hover:not(.active) {
+    background-color: #111111;
+  }
+  
+  .pagination-container button:focus:not(.active) {
+    box-shadow: 0px 0px 3px 1px #f7d354;
+  }
+  
+  .pagination-container button.disabled {
+    opacity: 0.2;
+    cursor: auto;
+  }
+}
+
+/* .pagination-container {
   display: flex;
   list-style: none;
   margin-bottom: 50px;
@@ -37,4 +90,4 @@
 .pagination-container button.disabled {
   opacity: 0.2;
   cursor: auto;
-}
+} */

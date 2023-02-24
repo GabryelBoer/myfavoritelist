@@ -6,27 +6,33 @@ import './Navbar.css';
 
 const Navbar = () => {
   const [search, setSearch] = useState('');
+  const [status, setStatus] = useState(false)
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!search) return;
+    if (!search) {
+      {status == true ? setStatus(false) : setStatus(true)}
+      return
+    }
 
     navigate(`/search?q=${search}`);
     setSearch('');
+    setStatus(false)
   };
 
   return (
     <nav id="navbar">
       <h2>
-        <Link to="/">
+        <Link to="/" onClick={() => setStatus(false)}>
           <BiCameraMovie />
-          MyFavoriteList
+          <p>MyFavoriteList</p>
         </Link>
       </h2>
       <form onSubmit={handleSubmit}>
         <input
+          className={status == true ? 'active' : ''}
           type="text"
           placeholder="Busque um filme"
           onChange={(e) => setSearch(e.target.value)}

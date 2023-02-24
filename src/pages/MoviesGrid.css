@@ -1,8 +1,18 @@
+/* Typical Device Breakpoints 
+-----------------------------
+Pequenas telas: até 600px
+Celular: 600px até 768px
+Tablet: 768px até 992px
+Desktop: 992px até 1200px
+Grandes telas: acima de 1200px
+*/
+
 .container .title {
   color: #fff;
-  font-size: 2.5rem;
+  font-size: 2rem;
   text-align: center;
-  margin: 2rem 0 1rem;
+  margin: 2rem 0 0rem;
+  overflow: hidden;
 }
 
 .title .query-text {
@@ -13,14 +23,13 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  column-gap: 15px;
   margin: 0 auto;
   padding: 2rem;
-  max-width: 1300px;
+  min-width: 320px;
 }
 
 .movies-container div {
-  width: 24%;
+  width: 90%;
   color: #fff;
   margin-bottom: 2.5rem;
   display: flex;
@@ -59,4 +68,77 @@
 .movies-container div a:hover {
   background-color: transparent;
   color: #f7d354;
+}
+
+#sentinela-search {
+  display: block;
+  width: 100%;
+  height: 10px;
+}
+
+#sentinela-home {
+  display: block;
+  width: 100%;
+  height: 10px;
+}
+
+@media screen and (min-width: 600px) and (max-width: 768px) {
+  .container .title {
+    font-size: 2.2rem;
+    margin: 2rem 0 1rem;
+  }
+
+  .movies-container {
+    column-gap: 15px;
+    padding: 1rem;
+  }
+
+  .movies-container div {
+    width: 45%;
+  }
+  
+  #sentinela-home {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .container .title {
+    font-size: 2.2rem;
+    margin: 2rem 0 1.5rem;
+  }
+
+  .movies-container {
+    column-gap: 15px;
+    padding: 0.8rem;
+  }
+
+  .movies-container div {
+    width: 31%;
+  }
+
+  #sentinela-home {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .container .title {
+    font-size: 2.5rem;
+    margin: 2rem 0 1.5rem;
+  }
+
+  .movies-container {
+    column-gap: 15px;
+    padding: 0.5rem;
+    max-width: 1300px;
+  }
+
+  .movies-container div {
+    width: 23%;
+  }
+
+  #sentinela-home {
+    display: none;
+  }
 }
