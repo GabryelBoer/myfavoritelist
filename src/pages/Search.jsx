@@ -14,7 +14,7 @@ const Search = () => {
   const [searchParams] = useSearchParams();
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState();
-  const [queried, SetQueried] = useState(false);
+  const [queried, SetQueried] = useState({queried: false});
   const [movies, setMovies] = useState([]);
   const query = searchParams.get('q');
 
