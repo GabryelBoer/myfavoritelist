@@ -15,7 +15,7 @@ const Home = () => {
   const [totalPages, setTotalPages] = useState();
   const [page, setPage] = useState(1);
 
-  const [isScrolling, setIsScrolling] = useState({isScrolling: false})
+  const [isScrolling, setIsScrolling] = useState(false)
 
   //Requisição API
   useEffect(() => {
