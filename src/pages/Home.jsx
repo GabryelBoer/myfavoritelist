@@ -75,7 +75,7 @@ const Home = () => {
       {/* Paginação */}
       {totalPages > 1 && (
         <MyPagination
-          total={totalPages - 42}
+          total={500}
           current={page}
           onChangePage={handleChangePage}
         />
